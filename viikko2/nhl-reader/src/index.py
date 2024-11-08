@@ -17,6 +17,8 @@ def main():
 
     print("Players from FIN:\n")
     fin_players = filter(lambda p: p.nationality == "FIN", players)
+    # Order by points
+    fin_players = sorted(fin_players, key=lambda p: p.points, reverse=True)
     for player in fin_players:
         print(player)
 
