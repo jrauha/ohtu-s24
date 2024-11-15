@@ -50,6 +50,28 @@ Register With Username That Is Already In Use
     Submit Registration
     Registration Should Fail With Message  Username is already in use
 
+Login After Successful Registration
+    Set Username  liisa
+    Set Password  liisa123
+    Set Password Confirmation  liisa123
+    Submit Registration
+    Welcome Page Should Be Open
+    Logout
+    Login as User  liisa  liisa123
+    Main Page Should Be Open
+
+
+Login After Failed Registration
+    Set Username  liisa
+    Set Password  liisa
+    Set Password Confirmation  liisa
+    Submit Registration
+    Registration Should Fail With Message  Password must be at least 8 characters long
+    Go To Login Page
+    Login as User  liisa  liisa
+    Page Should Contain  Invalid username or password
+
+
 *** Keywords ***
 Submit Registration
     Click Button  Register
@@ -81,3 +103,15 @@ Set Password
 Set Password Confirmation
     [Arguments]  ${password}
     Input Password  password_confirmation  ${password}
+
+Login as User
+    [Arguments]  ${username}  ${password}
+    Go To Login Page
+    Set Username  ${username}
+    Set Password  ${password}
+    Click Button  Login
+
+Logout
+    Go To  ${HOME_URL}/ohtu
+    Click Button  Logout
+    Login Page Should Be Open
